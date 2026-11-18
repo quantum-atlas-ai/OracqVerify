@@ -1,7 +1,11 @@
-import Lean.Data.Json
-import Lean.Elab.Term
+module
+
+public meta import Lean.Data.Json
+public meta import Lean.Elab.Term
 
 /-! Verification of the serialized two-wire Open Bell pilot. -/
+
+public section
 
 namespace OracqVerify.OpenBell
 
@@ -11,6 +15,8 @@ inductive Gate where
   | h (wire : Fin 2)
   | cx (control target : Fin 2)
   deriving DecidableEq
+
+meta section
 
 private def expect (ok : Bool) (reason : String) : Except String Unit :=
   if ok then .ok () else .error reason
@@ -85,6 +91,8 @@ def readBound (openRir boundRir : String) : Except String (List Gate) := do
   let implementation ← (← readBody impl "entangle_impl").getArr?
   return (← readGate first) :: (← implementation.toList.mapM readGate)
 
+end
+
 /-- Coefficients are scaled by `sqrt(2)^hadamards` to keep the interpreter exact. -/
 structure State where
   amplitudes : Fin 4 → Int
@@ -125,7 +133,7 @@ def strictCounts (gates : List Gate) : StrictCounts :=
     | .h _ => { counts with h := counts.h + 1 }
     | .cx _ _ => ⟨counts.h + 2, counts.cz + 1⟩) ⟨0, 0⟩
 
-private instance : ToExpr Gate where
+private meta instance : ToExpr Gate where
   toExpr
     | .h wire => mkApp (mkConst ``Gate.h) (toExpr wire)
     | .cx control target => mkApp2 (mkConst ``Gate.cx) (toExpr control) (toExpr target)
@@ -149,7 +157,7 @@ theorem exported_bell :
     (List.ofFn (run exportedProgram).amplitudes, (run exportedProgram).hadamards) =
       ([1, 0, 0, 1], 1) := by decide
 
-private def readLedger (text : String) : Except String (Nat × Nat × Nat × Nat × Nat × Nat) := do
+private meta def readLedger (text : String) : Except String (Nat × Nat × Nat × Nat × Nat × Nat) := do
   let json ← Json.parse text
   let atoms ← json.getObjVal? "atoms"
   return (← json.getObjValAs? Nat "qubits", ← atoms.getObjValAs? Nat "h",
@@ -161,7 +169,8 @@ local elab "decodeBellLedger" : term =>
   | .ok counts => pure (toExpr counts)
   | .error reason => throwError "Invalid open_bell resource ledger: {reason}"
 
-private def ledger : Nat × Nat × Nat × Nat × Nat × Nat := decodeBellLedger
+/-- Frozen resource fields projected from the exported Bell ledger. -/
+def ledger : Nat × Nat × Nat × Nat × Nat × Nat := decodeBellLedger
 
 /-- The strict gate counts of the decoded RIR agree with the exported resource ledger. -/
 theorem exported_counts :

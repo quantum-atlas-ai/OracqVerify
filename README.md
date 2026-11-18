@@ -8,14 +8,19 @@ The development plan is tracked in [qatlib-dev #554](https://github.com/quantum-
 
 The [fixture exporter](scripts/export_open_bell.py) uses Oracq to build `open_bell`, apply H to wire 0, and call an open two-wire slot. It checks that Oracq rejects a one-wire implementation, binds a controlled-X implementation, and estimates resources from the reloaded bound JSON.
 
-Reproduce the three fixtures with the pinned Oracq commit and check the Lean proofs.
+Reproduce the fixtures with the pinned Oracq commit and check the Lean proofs.
 
 ```sh
 uv run --no-project \
   --with 'oracq @ git+https://github.com/IAI-USTC-Quantum/oracq.git@3dbd194f0cae2217d41112123db2aadb74a44caf' \
   python scripts/export_open_bell.py --check
+uv run --no-project \
+  --with 'oracq @ git+https://github.com/IAI-USTC-Quantum/oracq.git@3dbd194f0cae2217d41112123db2aadb74a44caf' \
+  python scripts/export_deutsch_jozsa.py --check
 lake build
 ```
+
+For a fresh checkout, `lake exe @Qatlib/get_cache --no-physlib` fetches the Mathlib and Qatlib build caches. The Lake manifest pins Qatlib at `5c88a0b7275769d44542d0a371a5af8f8841cbae`.
 
 [OpenBell.lean](OracqVerify/OpenBell.lean) checks the RIR 0.1 module interfaces and call forwarding at elaboration. It projects the gate word and ledger fields into Lean values. Kernel proofs compute the final state from `|00⟩` and compare the strict resource counts from the same gate word against the Oracq ledger.
 
@@ -26,4 +31,19 @@ lake build
 | Strict gates | 3 H, 1 CZ |
 | T gates and QRAM queries | 0 each |
 
-The checker covers this two-wire RIR fragment with H, controlled-X, and whole-register calls. It interprets real amplitudes as integer coefficients with a shared power of `sqrt(2)` in the denominator. JSON parsing and projection belong to elaboration. The statements about the decoded values are kernel-checked. Connecting this fragment to a pinned public Qatlib semantics is the next integration step.
+The checker covers this two-wire RIR fragment with H, controlled-X, and whole-register calls. It interprets real amplitudes as integer coefficients with a shared power of `sqrt(2)` in the denominator. JSON parsing and projection belong to elaboration. The statements about the decoded values are kernel-checked.
+
+[OpenBellQatlib.lean](OracqVerify/OpenBellQatlib.lean) translates the decoded word to Qatlib's `QueryWordCore` and proves the Bell output under complex matrix semantics. Its two explicit matrix instructions are the H and controlled-X of the RIR. The strict resource ledger counts the expansion of controlled-X into H, CZ, H separately.
+
+## One-bit Deutsch–Jozsa pilot
+
+The [fixture exporter](scripts/export_deutsch_jozsa.py) calls Oracq's `deutsch_jozsa` generator with an open Boolean-function slot. It binds the same program to an empty implementation for the constant-zero function and a controlled flip for the balanced function. Each ledger is produced after reloading its own bound artifact.
+
+[DeutschJozsa.lean](OracqVerify/DeutschJozsa.lean) checks the two bindings, the order of the entry instructions, the full-register forwarding, and the input readout. The kernel proofs check each exact two-wire output and both strict ledgers.
+
+| Binding | Input readout | Oracle slot calls | Strict gates |
+| --- | --- | --- | --- |
+| Constant zero | 0 | 1 | 3 H, 1 X |
+| First input bit | 1 | 1 | 5 H, 1 X, 1 CZ |
+
+Each bound implementation uses two logical qubits and zero T gates and QRAM queries. The checker recognizes the preparation and readout spans at positive input widths. The verified executions and ledger comparisons above concern the exported one-bit fixtures.
