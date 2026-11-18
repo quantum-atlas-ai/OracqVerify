@@ -1,0 +1,301 @@
+{
+  "entry": "deutsch_jozsa_4b232475a5041be15527",
+  "modules": [
+    {
+      "attributes": [],
+      "body": [],
+      "locals": [],
+      "name": "constant_zero",
+      "registers": [
+        {
+          "name": "address",
+          "tag": "Register",
+          "type": {
+            "kind": "bits",
+            "tag": "RegType",
+            "width": 1
+          }
+        },
+        {
+          "name": "data",
+          "tag": "Register",
+          "type": {
+            "kind": "bits",
+            "tag": "RegType",
+            "width": 1
+          }
+        }
+      ],
+      "resources": [],
+      "tag": "Module"
+    },
+    {
+      "attributes": [
+        [
+          "algorithm",
+          "deutsch_jozsa"
+        ],
+        [
+          "readout_register",
+          "input"
+        ],
+        [
+          "validation_stage",
+          "paradigm"
+        ]
+      ],
+      "body": [
+        {
+          "angle": null,
+          "op": "x",
+          "operands": [
+            {
+              "parts": [
+                {
+                  "register": "answer",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            }
+          ],
+          "tag": "Primitive",
+          "value": null
+        },
+        {
+          "angle": null,
+          "op": "h",
+          "operands": [
+            {
+              "parts": [
+                {
+                  "register": "answer",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            }
+          ],
+          "tag": "Primitive",
+          "value": null
+        },
+        {
+          "angle": null,
+          "op": "h",
+          "operands": [
+            {
+              "parts": [
+                {
+                  "register": "input",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            }
+          ],
+          "tag": "Primitive",
+          "value": null
+        },
+        {
+          "arguments": [
+            {
+              "parts": [
+                {
+                  "register": "input",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            },
+            {
+              "parts": [
+                {
+                  "register": "answer",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            }
+          ],
+          "module": "dj_function",
+          "resources": [],
+          "tag": "Call"
+        },
+        {
+          "angle": null,
+          "op": "h",
+          "operands": [
+            {
+              "parts": [
+                {
+                  "register": "input",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            }
+          ],
+          "tag": "Primitive",
+          "value": null
+        }
+      ],
+      "locals": [],
+      "name": "deutsch_jozsa_4b232475a5041be15527",
+      "registers": [
+        {
+          "name": "input",
+          "tag": "Register",
+          "type": {
+            "kind": "bits",
+            "tag": "RegType",
+            "width": 1
+          }
+        },
+        {
+          "name": "answer",
+          "tag": "Register",
+          "type": {
+            "kind": "bits",
+            "tag": "RegType",
+            "width": 1
+          }
+        }
+      ],
+      "resources": [],
+      "tag": "Module"
+    },
+    {
+      "attributes": [
+        [
+          "implementation_status",
+          "bound"
+        ],
+        [
+          "oracle_bound_to",
+          "constant_zero"
+        ],
+        [
+          "oracle_paradigm",
+          "database_xor"
+        ],
+        [
+          "supports_adjoint",
+          true
+        ],
+        [
+          "supports_controlled",
+          true
+        ]
+      ],
+      "body": [
+        {
+          "arguments": [
+            {
+              "parts": [
+                {
+                  "register": "address",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            },
+            {
+              "parts": [
+                {
+                  "register": "data",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            }
+          ],
+          "module": "constant_zero",
+          "resources": [],
+          "tag": "Call"
+        }
+      ],
+      "locals": [],
+      "name": "dj_function",
+      "registers": [
+        {
+          "name": "address",
+          "tag": "Register",
+          "type": {
+            "kind": "bits",
+            "tag": "RegType",
+            "width": 1
+          }
+        },
+        {
+          "name": "data",
+          "tag": "Register",
+          "type": {
+            "kind": "bits",
+            "tag": "RegType",
+            "width": 1
+          }
+        }
+      ],
+      "resources": [],
+      "tag": "Module"
+    }
+  ],
+  "tag": "Program",
+  "version": "0.1"
+}

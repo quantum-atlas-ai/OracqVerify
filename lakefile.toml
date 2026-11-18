@@ -1,0 +1,19 @@
+name = "OracqVerify"
+defaultTargets = ["OracqVerify"]
+enableArtifactCache = true
+
+[leanOptions]
+autoImplicit = false
+
+[[require]]
+name = "Qatlib"
+git = "https://github.com/quantum-atlas-ai/qatlib.git"
+rev = "5c88a0b7275769d44542d0a371a5af8f8841cbae"
+
+[[lean_lib]]
+name = "OracqVerify"
+needs = ["fixtures"]
+
+[[input_dir]]
+name = "fixtures"
+text = true
