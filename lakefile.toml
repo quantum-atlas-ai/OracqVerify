@@ -1,0 +1,13 @@
+name = "OracqVerify"
+defaultTargets = ["OracqVerify"]
+
+[leanOptions]
+autoImplicit = false
+
+[[lean_lib]]
+name = "OracqVerify"
+needs = ["fixtures"]
+
+[[input_dir]]
+name = "fixtures"
+text = true
