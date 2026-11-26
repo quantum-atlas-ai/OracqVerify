@@ -1,0 +1,26 @@
+{
+  "atoms": {
+    "h": 3,
+    "x": 1
+  },
+  "clifford": 4,
+  "complete": true,
+  "epsilon": 1e-10,
+  "gate_total": 4,
+  "mcx_ancilla": 0,
+  "oracle_calls": [],
+  "qram_queries": {},
+  "qram_total": 0,
+  "qram_write_total": 0,
+  "qram_writes": {},
+  "qubits": 2,
+  "qubits_lower_bound": 2,
+  "rotation_axes": {},
+  "rotation_counts": [],
+  "rotations": 0,
+  "t_exact": 0,
+  "t_synthesis": 0,
+  "t_total": 0,
+  "toffoli": 0,
+  "unknown_workspace": []
+}

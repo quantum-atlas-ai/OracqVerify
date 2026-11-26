@@ -1,0 +1,198 @@
+{
+  "entry": "open_bell",
+  "modules": [
+    {
+      "attributes": [
+        [
+          "implementation_status",
+          "bound"
+        ],
+        [
+          "oracle_bound_to",
+          "entangle_impl"
+        ],
+        [
+          "oracle_paradigm",
+          "unitary"
+        ],
+        [
+          "supports_adjoint",
+          true
+        ],
+        [
+          "supports_controlled",
+          true
+        ]
+      ],
+      "body": [
+        {
+          "arguments": [
+            {
+              "parts": [
+                {
+                  "register": "pair",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 2
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 2
+              }
+            }
+          ],
+          "module": "entangle_impl",
+          "resources": [],
+          "tag": "Call"
+        }
+      ],
+      "locals": [],
+      "name": "entangle",
+      "registers": [
+        {
+          "name": "pair",
+          "tag": "Register",
+          "type": {
+            "kind": "bits",
+            "tag": "RegType",
+            "width": 2
+          }
+        }
+      ],
+      "resources": [],
+      "tag": "Module"
+    },
+    {
+      "attributes": [],
+      "body": [
+        {
+          "angle": null,
+          "op": "xor",
+          "operands": [
+            {
+              "parts": [
+                {
+                  "register": "pair",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            },
+            {
+              "parts": [
+                {
+                  "register": "pair",
+                  "start": 1,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            }
+          ],
+          "tag": "Primitive",
+          "value": null
+        }
+      ],
+      "locals": [],
+      "name": "entangle_impl",
+      "registers": [
+        {
+          "name": "pair",
+          "tag": "Register",
+          "type": {
+            "kind": "bits",
+            "tag": "RegType",
+            "width": 2
+          }
+        }
+      ],
+      "resources": [],
+      "tag": "Module"
+    },
+    {
+      "attributes": [],
+      "body": [
+        {
+          "angle": null,
+          "op": "h",
+          "operands": [
+            {
+              "parts": [
+                {
+                  "register": "pair",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 1
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 1
+              }
+            }
+          ],
+          "tag": "Primitive",
+          "value": null
+        },
+        {
+          "arguments": [
+            {
+              "parts": [
+                {
+                  "register": "pair",
+                  "start": 0,
+                  "tag": "Span",
+                  "width": 2
+                }
+              ],
+              "tag": "Ref",
+              "type": {
+                "kind": "bits",
+                "tag": "RegType",
+                "width": 2
+              }
+            }
+          ],
+          "module": "entangle",
+          "resources": [],
+          "tag": "Call"
+        }
+      ],
+      "locals": [],
+      "name": "open_bell",
+      "registers": [
+        {
+          "name": "pair",
+          "tag": "Register",
+          "type": {
+            "kind": "bits",
+            "tag": "RegType",
+            "width": 2
+          }
+        }
+      ],
+      "resources": [],
+      "tag": "Module"
+    }
+  ],
+  "tag": "Program",
+  "version": "0.1"
+}

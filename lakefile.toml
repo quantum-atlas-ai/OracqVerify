@@ -1,0 +1,25 @@
+name = "OracqVerify"
+defaultTargets = ["OracqVerify", "oracq-verify"]
+enableArtifactCache = true
+restoreAllArtifacts = true
+
+[leanOptions]
+autoImplicit = false
+
+[[require]]
+name = "Qatlib"
+git = "https://github.com/quantum-atlas-ai/qatlib.git"
+rev = "862e796f979a2bb7023a6fab2cebce5e16c5d541"
+
+[[lean_lib]]
+name = "OracqVerify"
+globs = ["OracqVerify", "OracqVerify.+"]
+needs = ["fixtures"]
+
+[[input_dir]]
+name = "fixtures"
+text = true
+
+[[lean_exe]]
+name = "oracq-verify"
+root = "Main"
